@@ -1,14 +1,20 @@
 const { ApolloServer, gql } = require('apollo-server');
 
 const typeDefs = gql`
-    type Book {
-        title: String
-        author: String
-    }
+  type Book {
+    title: String
+    author: Author  
+  }
 
-    type Query {
-        books: [Book]
-    }
+  type Author {
+    name: String
+    books: [Book]
+  }
+
+  type Query {
+    getBooks: [Book]
+    getAuthors: [Author]
+  }
 `;
 
 
@@ -24,9 +30,22 @@ const books = [
 ];
 
 
+const authors = [
+  {
+    books: ['Harry Potter and the Chamber of Secrets'],
+    name: 'J.K. Rowling',
+  },
+  {
+    books: ['Jurassic Park'],
+    name: 'Michael Crichton',
+  },
+];
+
+
 const resolvers = {
     Query: {
-      books: () => books,
+      getBooks: () => books,
+      getAuthors: () => authors,
     },
 };
 
